@@ -1,0 +1,43 @@
+<template>
+    <form @submit.prevent="login">
+        <div class="w-1/2 mx-auto flex flex-col gap-4">
+            <div>
+                <label for="name" class="label">User Name</label>
+                <input type="text" v-model="form.name" id="name" class="input">
+                <InputError :err="form.errors.name" v-if="form.errors.name" />
+            </div>
+            <div>
+                <label for="email" class="label">E-mail</label>
+                <input type="text" v-model="form.email" id="email" class="input">
+                <InputError :err="form.errors.email" v-if="form.errors.email" />
+            </div>
+            <div>
+                <label for="password" class="label">Password</label>
+                <input type="password" v-model="form.password"  id="password" class="input">
+                <InputError :err="form.errors.password" v-if="form.errors.password" />
+            </div>  
+            <div>
+                <label for="password_confirmation" class="label">Confirm Password</label>
+                <input type="password" v-model="form.password_confirmation"  id="password_confirmation" class="input">
+            </div>
+            <div>
+                <button type="submit" class="btn-primary w-full mt-2 ">Create Account</button>
+            </div>
+            <div>
+                <Link :href="route('login')" class=" text-center text-gray-500 mt-2 ">Already have an account ? Click here</Link>
+            </div>
+        </div>
+    </form>
+</template>
+
+<script setup>
+import InputError from '@/Component/Ui/InputError.vue';
+import { Link, useForm } from '@inertiajs/vue3';
+const form = useForm({
+    name:null,
+    email : null,
+    password : null,
+    password_confirmation : null,
+})
+const login = () => form.post(route('user-account.store'))
+</script>
