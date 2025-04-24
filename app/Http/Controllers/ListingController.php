@@ -22,7 +22,8 @@ class ListingController extends Controller
     {
         return inertia(
             'Listing/index',[
-                'listings' => Listing::all()
+                'listings' => Listing::orderByDesc('created_at')
+                     ->paginate(10)
             ]
         );
     }
