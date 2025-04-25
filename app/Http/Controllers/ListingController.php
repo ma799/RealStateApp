@@ -23,29 +23,19 @@ class ListingController extends Controller
         $query = Listing::orderByDesc('created_at');
         $filters = $request->only(['priceFrom' ,'priceTo' , 'beds' ,'baths' ,'areaFrom' , 'areaTo' ]);
         
-        if($filters['priceFrom'] ?? false){
-            $query->where('price','>=',$filters['priceFrom']);
-        }
-      
-        if($filters['priceTo'] ?? false){
-            $query->where('price','<=',$filters['priceTo']);
-        }
+        $query->when($filters['priceFrom'] ?? false,
+            fn($query, $priceFrom) => $query->where('price', '>=', $priceFrom))
+            ->when($filters['priceTo'] ?? false,
+                fn($query, $priceTo) => $query->where('price', '<=', $priceTo))
+                ->when($filters['beds'] ?? false,
+                    fn($query, $beds) => $query->where('beds', (int)$beds < 6 ? '=' : ">=" , $beds))
+                    ->when($filters['baths'] ?? false,
+                        fn($query, $baths) => $query->where('baths',(int)$baths < 6 ? '=' : ">=" , $baths))
+                        ->when($filters['areaFrom'] ?? false,
+                            fn($query, $areaFrom) => $query->where('area', '>=', $areaFrom))
+                            ->when($filters['areaTo'] ?? false,
+                                fn($query, $areaTo) => $query->where('area', '<=', $areaTo));
 
-        if($filters['beds'] ?? false){
-            $query->where('beds',$filters['beds']);
-        }
-      
-        if($filters['baths'] ?? false){
-            $query->where('baths',$filters['baths']);
-        }
-
-        if($filters['areaFrom'] ?? false){
-            $query->where('area','>=',$filters['areaFrom']);
-        }
-      
-        if($filters['areaTo'] ?? false){
-            $query->where('area','<=',$filters['areaTo']);
-        }
 
         return inertia(
             'Listing/index',[
