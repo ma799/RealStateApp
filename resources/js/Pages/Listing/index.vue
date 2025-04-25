@@ -1,6 +1,6 @@
 <template>
 
-<Filter />
+<Filter :filters="filters" />
 
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
   <Listing :listing="listing" v-for="listing in listings.data" :key="listing.id" />
@@ -13,7 +13,8 @@
 </template>
 <script setup>
 defineProps({
-    'listings' : Object
+    'listings' : Object,
+    'filters' : Object
 })
 import Listing from '@/Pages/Listing/Index/Components/Listing.vue'
 import Pagination from '@/Component/Ui/Pagination.vue'
