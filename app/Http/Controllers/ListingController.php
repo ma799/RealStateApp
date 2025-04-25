@@ -20,28 +20,13 @@ class ListingController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Listing::orderByDesc('created_at');
         $filters = $request->only(['priceFrom' ,'priceTo' , 'beds' ,'baths' ,'areaFrom' , 'areaTo' ]);
         
-        $query->when($filters['priceFrom'] ?? false,
-            fn($query, $priceFrom) => $query->where('price', '>=', $priceFrom))
-            ->when($filters['priceTo'] ?? false,
-                fn($query, $priceTo) => $query->where('price', '<=', $priceTo))
-                ->when($filters['beds'] ?? false,
-                    fn($query, $beds) => $query->where('beds', (int)$beds < 6 ? '=' : ">=" , $beds))
-                    ->when($filters['baths'] ?? false,
-                        fn($query, $baths) => $query->where('baths',(int)$baths < 6 ? '=' : ">=" , $baths))
-                        ->when($filters['areaFrom'] ?? false,
-                            fn($query, $areaFrom) => $query->where('area', '>=', $areaFrom))
-                            ->when($filters['areaTo'] ?? false,
-                                fn($query, $areaTo) => $query->where('area', '<=', $areaTo));
-
-
         return inertia(
             'Listing/index',[
                 'filters' => $filters,
-                'listings' => $query->paginate(10)
-                     ->withQueryString()
+                'listings' => Listing::latest()->filter($filters)
+                              ->paginate(10)->withQueryString()
             ]
         );
     }
