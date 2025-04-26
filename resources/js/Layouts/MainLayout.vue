@@ -8,7 +8,7 @@
 <div class="font-medium text-lg"><Link :href="route('listing.index')" >Listing</Link></div>
 <div class="text-indigo-600 dark:text-indigo-300 text-xl font-bold text-center "><Link :href="route('listing.index')" >Larazillow</Link></div>
 <div v-if="user" class="flex items-center gap-4">
-<div class="text-sm text-gray-500 dark:text-gray-400">{{user.name}}</div>
+<Link :href="route('realtor.listing.index')" class="text-sm text-gray-500 dark:text-gray-400">{{user.name}}</Link>
 <div class="btn-primary"><Link :href="route('listing.create')" >+ New Listing</Link></div>
  <Link :href="route('logout')" method="DELETE">Log out</Link>
 </div>
