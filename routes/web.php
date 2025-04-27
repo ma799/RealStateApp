@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[IndexController::class,'index']);
 Route::get('/show',[IndexController::class,'show']);
 
-Route::resource('listing',ListingController::class)->except(['show','index'])->middleware('auth');
+Route::resource('listing',ListingController::class)->except(['show','index','destroy'])->middleware('auth');
 Route::resource('listing',ListingController::class)->only(['show','index']);
 
 Route::get('/login',[AuthController::class,'create'])->name('login');
@@ -22,5 +22,5 @@ Route::delete('/logout',[AuthController::class,'destroy'])->name('logout');
 Route::resource('user-account',UserAccountController::class)->only('create','store');
 
 Route::prefix('realtor')->name('realtor.')->middleware('auth')->group(function () {
-    Route::resource('listing',RealtorListingController::class);
+    Route::resource('listing',RealtorListingController::class)->only(['index','destroy']);
     });
