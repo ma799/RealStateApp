@@ -13,6 +13,7 @@ class Listing extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = ['beds', 'baths', 'area', 'city', 'code', 'street', 'street_nb', 'price'];
+    protected $orderKeys = ['created_at', 'price'];
 
     public function owner() : BelongsTo {
         return $this->belongsTo(
@@ -21,7 +22,7 @@ class Listing extends Model
         );
     }
 
-    public function scopeLatest(Builder $query) : Builder {
+    public function scopeMostRecent(Builder $query) : Builder {
         return $query->latest();
     }
 
@@ -38,6 +39,16 @@ class Listing extends Model
                             fn($query, $areaFrom) => $query->where('area', '>=', $areaFrom))
                             ->when($filters['areaTo'] ?? false,
                                 fn($query, $areaTo) => $query->where('area', '<=', $areaTo));
+    }
+
+
+    public function scopeRealtorFilter(Builder $query, array $filters) : Builder {
+        return $query->when($filters['deleted'] ?? false,
+                            fn($query) => $query->withTrashed()
+                            )->when($filters['by'] ?? false,
+                        fn($query, $by) => !in_array($by, $this->orderKeys) ? $query->orderBy('created_at', 'desc') :
+                        $query->orderBy($by, $filters['order'] ?? 'desc'));
+
     }
 
 }
