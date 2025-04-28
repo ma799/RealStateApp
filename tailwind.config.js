@@ -1,8 +1,8 @@
-module.exports = {
-    theme: {
-      // ...
-    },
-    plugins: [
-      require('@tailwindcss/forms'),
-    ],
-  }
+// module.exports = {
+//     theme: {
+//       // ...
+//     },
+//     plugins: [
+//       require('@tailwindcss/forms'),
+//     ],
+//   }
