@@ -1,12 +1,12 @@
 <template>
      <h1 class="text-3xl mb-4">Your Listings</h1>
    <section>
-      <RealtorFilter />
+      <RealtorFilter :filters="filters" />
    </section>
    <section class="grid grid-cols-1 lg:grid-cols-2 gap-2">
-     <Box v-for="listing in listings" :key="listing.id">
+     <Box :class="{'border-dashed' : listing.deleted_at}" v-for="listing in listings.data" :key="listing.id">
        <div class="flex flex-col md:flex-row gap-2 md:items-center justify-between">
-         <div>
+         <div :class="{'opacity-30': listing.deleted_at }">
            <div class="xl:flex items-end gap-2">
              <Price :price="listing.price" class="text-2xl font-medium" />
              <ListingSpace :listing="listing" />
@@ -15,13 +15,27 @@
            <ListingAddress class="text-gray-700 dark:text-gray-400" :listing="listing" />
          </div>
          <div class="flex items-center gap-1 text-gray-600 dark:text-gray-300">
-           <Link class="btn-outline text-xs font-medium" href="">Preview</Link>
-           <Link class="btn-outline text-xs font-medium" href="">Edit</Link>
-           <Link class="btn-outline text-xs font-medium" :href="route('realtor.listing.destroy',{'listing':listing.id})" method="DELETE" >Delete</Link>
+           <a class="btn-outline text-xs font-medium" :href="route('listing.show',listing.id)" target="_blank">Preview</a>
+           <Link class="btn-outline text-xs font-medium" :href="route('realtor.listing.edit',listing.id)">Edit</Link>
+           
+           <Link v-if="!listing.deleted_at" class="btn-outline text-xs font-medium" 
+           :href="route('realtor.listing.destroy',{'listing':listing.id})" 
+           method="DELETE" >
+           Delete
+           </Link>
+
+           <Link v-else class="btn-outline text-xs font-medium" 
+           :href="route('realtor.listing.restore',{'listing':listing.id})" 
+           method="PUT" >
+           Restore
+           </Link>
          </div>
        </div>
      </Box>
    </section>
+   <section v-if="listings.data.length" class="w-full flex justify-center mt-10 mb-4">
+      <Pagination :links="listings.links" />
+  </section>
 </template>
 <script setup>
 import ListingAddress from '@/Component/ListingAddress.vue';
@@ -30,7 +44,9 @@ import Price from '@/Component/Price.vue';
 import Box from '@/Component/Ui/Box.vue';
 import { Link } from '@inertiajs/vue3';
 import RealtorFilter from '@/Pages/Realtor/Index/Component/RealtorFilter.vue';
+import Pagination from '@/Component/Ui/Pagination.vue';
 defineProps({
-    listings: Array
+    listings: Object,
+    filters: Object
 });
 </script>

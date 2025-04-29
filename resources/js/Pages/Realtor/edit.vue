@@ -77,7 +77,7 @@ import { useForm } from '@inertiajs/vue3'
         price:listing.price
     })
 
-    const edit = () => form.put(route('listing.update',listing.id)) ;
+    const edit = () => form.put(route('realtor.listing.update',listing.id)) ;
 
   </script>
 
