@@ -14,7 +14,8 @@
  
            <ListingAddress class="text-gray-700 dark:text-gray-400" :listing="listing" />
          </div>
-         <div class="flex items-center gap-1 text-gray-600 dark:text-gray-300">
+         <section class="flex flex-col gap-2">
+          <div class="flex items-center gap-1 text-gray-600 dark:text-gray-300">
            <a class="btn-outline text-xs font-medium" :href="route('listing.show',listing.id)" target="_blank">Preview</a>
            <Link class="btn-outline text-xs font-medium" :href="route('realtor.listing.edit',listing.id)">Edit</Link>
            
@@ -30,10 +31,12 @@
            Restore
            </Link>
          </div>
+         <Link class="btn-outline text-xs font-medium text-center" :href="route('realtor.listing.image.create',{'listing': listing.id})">Images</Link>
+         </section>
        </div>
      </Box>
    </section>
-   <section v-if="listings.data.length" class="w-full flex justify-center mt-10 mb-4">
+   <section v-if="listings.data.length" class="w-full flex justify-center mt-10 mb-4 ">
       <Pagination :links="listings.links" />
   </section>
 </template>
