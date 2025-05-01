@@ -11,6 +11,9 @@
                 <button  class="btn-outline disabled:opacity-30 disabled:cursor-not-allowed" type="submit" :disabled="canUpload">Upload</button>
                 <button class="btn-outline" @click="reset" type="reset">Reset</button>
             </section>
+            <div v-if="imageErrors.length">
+                <InputError v-for="(error,index) in imageErrors" :key="index" :err="error" />  
+            </div>  
         </form>
     </Box>
     <Box class="mt-4" v-if="listing.images.length" >
@@ -33,36 +36,17 @@ import { useForm } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import { router } from '@inertiajs/vue3'    
 import NProgress from 'nprogress' 
+import InputError from '@/Component/Ui/InputError.vue';
 
 
 const props = defineProps({
     listing:Object,
 })
 
-// Initialize NProgress with custom settings
-NProgress.configure({
-    minimum: 0.1,
-    easing: 'ease',
-    speed: 500,
-    showSpinner: false,
-    trickle: false,
-    template: `
-        <div class="progress-bar" role="bar">
-            <div class="progress-peg"></div>
-        </div>
-    `
-});
-
-router.on('progress', (event) => {
-    if (event.detail?.progress?.percentage) {
-        NProgress.set((event.detail.progress.percentage / 100) * 0.9);
-    }
-});
-
 const form = useForm({
     images: [],
 });
-
+const imageErrors = computed(() => Object.values(form.errors) )
 const upload = () => {
     NProgress.start();
     form.post(route('realtor.listing.image.store', { listing: props.listing.id }), {
@@ -84,6 +68,28 @@ const addFiles = (event) => {
 const reset = () => {
     form.reset('images');
 };
+
+
+
+// Initialize NProgress with custom settings
+NProgress.configure({
+    minimum: 0.1,
+    easing: 'ease',
+    speed: 500,
+    showSpinner: false,
+    trickle: false,
+    template: `
+        <div class="progress-bar" role="bar">
+            <div class="progress-peg"></div>
+        </div>
+    `
+});
+
+router.on('progress', (event) => {
+    if (event.detail?.progress?.percentage) {
+        NProgress.set((event.detail.progress.percentage / 100) * 0.9);
+    }
+});
 </script>
 
 <style>

@@ -31,7 +31,7 @@
            Restore
            </Link>
          </div>
-         <Link class="btn-outline text-xs font-medium text-center" :href="route('realtor.listing.image.create',{'listing': listing.id})">Images</Link>
+         <Link class="btn-outline text-xs font-medium text-center" :href="route('realtor.listing.image.create',{'listing': listing.id})">Images ({{ listing.images_count }})</Link>
          </section>
        </div>
      </Box>

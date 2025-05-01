@@ -6,7 +6,7 @@
               <img :src="image.src" class="rounded-md h-full w-full" />
             </div>
           </div>
-          <div class="text-gray-500 w-full text-center font-medium">No Image</div>
+          <div v-else class="text-gray-500 w-full text-center font-medium">No Image</div>
     </Box>
   <div class="flex flex-col md:col-span-5 gap-4">
     <Box class="">

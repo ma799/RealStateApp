@@ -18,16 +18,23 @@ class Listing extends Model
 
     public function owner() : BelongsTo {
         return $this->belongsTo(
-            \App\Models\User::class,
+            User::class,
             'by_user_id'
         );
     }
 
     public function images() : HasMany {
         return $this->hasMany(
-            \App\Models\ListingImage::class
+            ListingImage::class
         );
     }
+    public function offers() : HasMany {
+        return $this->hasMany(
+            Offer::class,
+            'listing_id'
+        );
+    }
+    
 
 
 
