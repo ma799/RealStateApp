@@ -26,7 +26,6 @@
 
     <div v-if=" success " class="border-2 dark:border-green-700 bg-green-50 dark:bg-green-900 p-2 border-green-200 shadow-sm mb-4 rounded-md">
        {{ success }}
-       This is Flash !
     </div>
     <slot>Default</slot>
 

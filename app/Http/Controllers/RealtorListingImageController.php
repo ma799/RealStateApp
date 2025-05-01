@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Listing;
+use App\Models\ListingImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class RealtorListingImageController extends Controller
 {
     public function create(Listing $listing)
      {
+        $listing->load('images');
          return inertia(
              'Realtor/ListingImage/Create',
              ['listing' => $listing]
@@ -26,6 +29,13 @@ class RealtorListingImageController extends Controller
                 ]);
             }
          }
-         return redirect()->back()->with('success', 'Images uploaded successfully.');
+        return  redirect()->back()->with('success', 'Images uploaded successfully.');
+     }
+
+     public function destroy(Listing $listing, ListingImage $image)
+     {
+         $listing->images()->find($image->id)->delete();
+         Storage::disk('public')->delete($image->filename);
+         return redirect()->back()->with('success', 'Image deleted successfully.');
      }
 }

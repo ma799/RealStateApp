@@ -25,5 +25,5 @@ Route::prefix('realtor')->name('realtor.')->middleware('auth')
 ->group(function () {
     Route::put('listing/{listing}/restore',[RealtorListingController::class,'restore'])->name('listing.restore')->withTrashed();   //best practice to be ar the top of the resource
     Route::resource('listing',RealtorListingController::class)->except(['show'])->withTrashed();
-    Route::resource('listing.image',RealtorListingImageController::class)->only(['create','store']);
+    Route::resource('listing.image',RealtorListingImageController::class)->only(['create','store','destroy']);
     });

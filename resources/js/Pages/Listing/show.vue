@@ -1,6 +1,11 @@
 <template>
 <div class="flex flex-col-reverse md:grid md:grid-cols-12 gap-4">
     <Box class="md:col-span-7 flex items-center justify-center">
+          <div v-if="listing.images.length" class="grid grid-cols-2 gap-1.5 ">
+            <div v-for="image in listing.images" class="rounded-md max-h-80">
+              <img :src="image.src" class="rounded-md h-full w-full" />
+            </div>
+          </div>
           <div class="text-gray-500 w-full text-center font-medium">No Image</div>
     </Box>
   <div class="flex flex-col md:col-span-5 gap-4">

@@ -7,12 +7,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ListingImage extends Model
 {
-    protected $fillable = [
-        'filename'
-    ];
+    protected $fillable = [ 'filename' ];
+    protected $appends = ['src'];
 
     public function listing() : BelongsTo
     {
         return $this->belongsTo(Listing::class);
+    }
+
+    public function getSrcAttribute() : string
+    {
+        return asset("storage/{$this->filename}");
     }
 }
