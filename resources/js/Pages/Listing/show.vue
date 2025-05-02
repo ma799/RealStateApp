@@ -57,7 +57,8 @@
         </div>
       </Box>
 
-      <MakeOffer  @updateOffer="offer = $event" v-if="user" :listingId="listing.id" :price="listing.price" />
+      <MakeOffer v-if="user && !offerMade" @updateOffer="offer = $event" :listingId="listing.id" :price="listing.price" />
+      <OfferMade  v-if="user && offerMade" :offer="offerMade"  />  
     </div>
   </div>
 </template>
@@ -66,6 +67,7 @@ import { usePage } from "@inertiajs/vue3";
 import { ref, computed } from "vue";
 const props = defineProps({
   listing: Object,
+  offerMade: Object,
 });
 const page = usePage();
 const user = computed(() => page.props.user);
@@ -84,5 +86,6 @@ import ListingSpace from "@/Component/ListingSpace.vue";
 import Price from "@/Component/Price.vue";
 import Box from "@/Component/Ui/Box.vue";
 import { useMonthlyPayment } from "@/Composables/useMonthlyPayment";
-import MakeOffer from "./Create/Component/MakeOffer.vue";
+import MakeOffer from "@/Pages/Listing/Create/Component/MakeOffer.vue";
+import OfferMade from "@/Pages/Listing/Create/Component/OfferMade.vue";
 </script>
