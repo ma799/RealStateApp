@@ -13,7 +13,7 @@ class Listing extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['beds', 'baths', 'area', 'city', 'code', 'street', 'street_nb', 'price'];
+    protected $fillable = ['beds', 'baths', 'area', 'city', 'code', 'street', 'street_nb', 'price','sold_at' ];
     protected $orderKeys = ['created_at', 'price'];
 
     public function owner() : BelongsTo {
@@ -34,9 +34,6 @@ class Listing extends Model
             'listing_id'
         );
     }
-    
-
-
 
 
 
@@ -76,6 +73,19 @@ class Listing extends Model
                         fn($query, $by) => !in_array($by, $this->orderKeys) ? $query->orderBy('created_at', 'desc') :
                         $query->orderBy($by, $filters['order'] ?? 'desc'));
 
+    }
+
+
+    public function scopeWithoutSold(Builder $query): Builder
+    {
+        // return $query->doesntHave('offers')
+        //     ->orWhereHas(
+        //         'offers',
+        //         fn (Builder $query) => $query->whereNull('accepted_at')
+        //             ->whereNull('rejected_at')
+        //     );
+
+        return $query->whereNull('sold_at');
     }
 
 }

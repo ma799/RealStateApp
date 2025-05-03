@@ -6,6 +6,7 @@ use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ListingOfferController;
 use App\Http\Controllers\RealtorListingController;
 use App\Http\Controllers\RealtorListingImageController;
+use App\Http\Controllers\RealtorListingOfferAcceptController;
 use App\Http\Controllers\UserAccountController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,5 +30,6 @@ Route::prefix('realtor')->name('realtor.')->middleware('auth')
 ->group(function () {
     Route::put('listing/{listing}/restore',[RealtorListingController::class,'restore'])->name('listing.restore')->withTrashed();   //best practice to be ar the top of the resource
     Route::resource('listing',RealtorListingController::class)->withTrashed();
+    Route::put('offer/{offer}/accept')->name('offer.accept')->uses(RealtorListingOfferAcceptController::class);
     Route::resource('listing.image',RealtorListingImageController::class)->only(['create','store','destroy']);
     });
