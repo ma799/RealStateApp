@@ -8,6 +8,12 @@
 <div class="font-medium text-lg"><Link :href="route('listing.index')" >Listing</Link></div>
 <div class="text-indigo-600 dark:text-indigo-300 text-xl font-bold text-center "><Link :href="route('listing.index')" >Larazillow</Link></div>
 <div v-if="user" class="flex items-center gap-4">
+    <div class="text-gray-500 relative pr-1.5 py-1.5 text-xl">
+             🔔
+             <div class="absolute right-0 top-0 w-5 h-5 bg-red-700 dark:bg-red-400 text-white font-medium border border-white dark:border-gray-900 rounded-full text-xs text-center">
+               {{ notificationCount }}
+             </div>
+           </div>
 <Link :href="route('realtor.listing.index')" class="text-sm text-gray-500 dark:text-gray-400">{{user.name}}</Link>
 <div class="btn-primary"><Link :href="route('realtor.listing.create')" >+ New Listing</Link></div>
  <Link :href="route('logout')" method="DELETE">Log out</Link>
@@ -54,4 +60,7 @@
     const page = usePage();
     const success = computed(()=>page.props.flash.success);
     const user = computed(()=>page.props.user);
+    const notificationCount = computed(
+   () => Math.min(page.props.user.notificationCount, 9)
+ )
 </script>
