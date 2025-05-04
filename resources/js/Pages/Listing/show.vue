@@ -1,13 +1,14 @@
 <template>
   <div class="flex flex-col-reverse md:grid md:grid-cols-12 gap-4">
-    <Box class="md:col-span-7 flex items-center justify-center">
-      <div v-if="listing.images.length" class="grid grid-cols-2 gap-1.5">
+    <Box v-if="listing.images.length" class="md:col-span-7 flex items-center justify-center">
+      <div class="grid grid-cols-2 gap-1.5">
         <div v-for="image in listing.images" class="rounded-md max-h-80">
           <img :src="image.src" class="rounded-md h-full w-full" />
         </div>
       </div>
-      <div v-else class="text-gray-500 w-full text-center font-medium">No Image</div>
     </Box>
+      <EmptyState v-else class="text-gray-500 w-full text-center
+       font-medium md:col-span-7 flex items-center justify-center" >No Image</EmptyState>
     <div class="flex flex-col md:col-span-5 gap-4">
       <Box class="">
         <template #header> Basic Info </template>
@@ -88,4 +89,5 @@ import Box from "@/Component/Ui/Box.vue";
 import { useMonthlyPayment } from "@/Composables/useMonthlyPayment";
 import MakeOffer from "@/Pages/Listing/Create/Component/MakeOffer.vue";
 import OfferMade from "@/Pages/Listing/Create/Component/OfferMade.vue";
+import EmptyState from "@/Component/Ui/EmptyState.vue";
 </script>
