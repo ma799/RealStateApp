@@ -5,7 +5,7 @@
    
 <div class="container max-w-10/10 mx-auto">
 <nav class="flex p-4 justify-between items-center">
-<div class="font-medium text-lg"><Link :href="route('listing.index')" >Listing</Link></div>
+<div class="font-medium text-lg"><Link :href="route('listing.index')" >Listings</Link></div>
 <div class="text-indigo-600 dark:text-indigo-300 text-xl font-bold text-center "><Link :href="route('listing.index')" >Larazillow</Link></div>
 <div v-if="user" class="flex items-center gap-4">
     <Link :href="route('notification.index')" class="text-gray-500 relative pr-1.5 py-1.5 text-lg">

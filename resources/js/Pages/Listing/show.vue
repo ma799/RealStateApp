@@ -53,7 +53,7 @@
           </div>
           <div class="flex justify-between text-sm font-medium mt-2">
             <div class="text-gray-500">Interest Paid</div>
-            <div><Price :price="interestPaid" class="" /></div>
+            <div><Price :price="totalInterest" class="" /></div>
           </div>
         </div>
       </Box>
@@ -76,7 +76,7 @@ const interestRate = ref(2.5);
 const duration = ref(1);
 const offer = ref(props.listing.price);
 
-const { monthlyPayment, totalPaid, interestPaid } = useMonthlyPayment(
+const { monthlyPayment, totalPaid, totalInterest } = useMonthlyPayment(
   offer,
   interestRate,
   duration

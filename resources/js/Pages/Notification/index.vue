@@ -14,12 +14,13 @@
      </div>
      <div>
       <Link
-           v-if="!notification.read_at"
-           :href="route('notification.seen', { notification: notification.id })" 
-           method="put"
-           class="btn-outline text-xs font-medium uppercase"
-         >
-       </Link>
+          v-if="!notification.read_at"
+          :href="route('notification.seen', { notification: notification.id })" 
+          method="put"
+          class="btn-outline text-xs font-medium uppercase"
+        >
+          Mark as read
+        </Link>
      </div>
    </div>
  </section>
