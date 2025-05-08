@@ -77,7 +77,7 @@ import { useForm } from '@inertiajs/vue3'
         price:listing.price
     })
 
-    const edit = () => form.put(route('listing.update',listing.id)) ;
+    const edit = () => form.put(route('realtor.listing.update',listing.id)) ;
 
   </script>
 
@@ -85,7 +85,7 @@ import { useForm } from '@inertiajs/vue3'
 
 
 
-  <style scoped>
+  <!-- <style scoped>
   label {
     margin-right: 2em;
   }
@@ -93,4 +93,4 @@ import { useForm } from '@inertiajs/vue3'
   div {
     padding: 2px
   }
-  </style>
+  </style> -->

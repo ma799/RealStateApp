@@ -2,16 +2,54 @@ version: "3.9"
 services:
   mysql:
     image: mariadb:10.8.3
-    # Uncomment below when on Mac M1
-    # platform: linux/arm64/v8
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: larazillow  # Add this to ensure DB exists
     ports:
-      - 3306:3306
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
   adminer:
     image: adminer
     restart: always
     ports:
-      - 3307:3307
+      - "8080:8080"  # Changed to standard Adminer port
+    depends_on:
+      - mysql
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    volumes:
+      - .:/var/www/html
+    environment:
+      - DB_HOST=mysql
+    depends_on:
+      - mysql
+
+  webserver:
+    image: nginx:alpine
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+    depends_on:
+      - app
+
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"  # SMTP port for sending emails
+      - "8025:8025"  # Web UI port
+    networks:
+      - default  # Ensure it's on the same network
+    restart: unless-stopped
+      
+volumes:
+  mysql_data:
