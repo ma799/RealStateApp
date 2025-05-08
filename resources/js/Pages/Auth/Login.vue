@@ -1,6 +1,6 @@
 <template>
     <form @submit.prevent="login">
-        <div class="w-1/2 mx-auto flex flex-col gap-4">
+        <div class="px-1 sm:px-0 w-5/5 sm:w-4/5 md:w-4/5 lg:w-1/2  mx-auto flex flex-col gap-4">
             <div>
                 <label for="email" class="label">E-mail (user name)</label>
                 <input type="text" v-model="form.email" id="email" class="input">

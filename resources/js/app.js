@@ -3,14 +3,6 @@ import { createInertiaApp } from '@inertiajs/vue3'
 import MainLayout from '@/Layouts/MainLayout.vue'
 import { ZiggyVue } from 'ziggy'
 
-// NProgress.configure({
-//   minimum: 0.1,
-//   easing: 'ease',
-//   speed: 500,
-//   showSpinner: false,
-//   trickle: false
-// })
-
 createInertiaApp({
   resolve: name => {
     const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })

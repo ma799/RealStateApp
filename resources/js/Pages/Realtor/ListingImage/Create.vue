@@ -2,7 +2,7 @@
     <Box>
         <template #header>Upload Images</template>
         <form @submit.prevent="upload" >
-            <section class="flex gap-2 items-center px-2 py-4">
+            <section class="flex gap-4 sm:gap-2 items-center px-2 pt-4 pb-1 flex-wrap justify-center sm:justify-start">
                 <input type="file" multiple @input="addFiles" 
                 class="border rounded-md file:px-4 file:py-2 border-gray-200 dark:border-gray-700 file:text-gray-700
                  file:dark:text-gray-400 file:border-0 file:bg-gray-100 file:dark:bg-gray-800 file:font-medium
@@ -18,7 +18,7 @@
     </Box>
     <Box class="mt-4" v-if="listing.images.length" >
         <template #header>Current Uploaded Images</template>
-        <section class="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 mt-4">
+        <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 mt-4">
             <div v-for="image in listing.images" :key="image.id" class="rounded-md flex flex-col justify-between max-h-90 g-2">
                      <img :src="image.src" class="rounded-md h-10/12 w-full"  />
                      <Link method="DELETE" :href="route('realtor.listing.image.destroy',{listing: listing.id , image : image})"

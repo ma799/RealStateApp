@@ -29,6 +29,8 @@ return new class extends Migration
                 'bidder_id'
             )->constrained('users');
 
+            $table->unique(['listing_id', 'bidder_id']); // Add this line
+
         });
     }
 
