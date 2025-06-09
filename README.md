@@ -84,9 +84,12 @@ Update your .env with correct credentials
 
 Choose :-
 
-System : MySQL / MariaDB
-Server : MySQL
-Username : root
+System : MySQL / MariaDB 
+
+Server : MySQL 
+
+Username : root 
+
 password : root
 
 Run migrations:
