@@ -1,0 +1,32 @@
+/* Custom NProgress styles that will apply globally */
+#nprogress {
+  pointer-events: none;
+  position: relative;
+  z-index: 9999;
+}
+
+#nprogress .bar {
+  background: linear-gradient(90deg, #4f46e5, #7c3aed);
+  height: 4px;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1031;
+  transition: width 0.3s ease;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #4f46e5, 0 0 5px #4f46e5;
+  display: block;
+  height: 100%;
+  opacity: 1;
+  position: absolute;
+  right: 0;
+  transform: rotate(3deg) translate(0px, -2px);
+  width: 100px;
+}
+
+#nprogress .spinner {
+  display: none !important;
+}
