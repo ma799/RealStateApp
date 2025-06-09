@@ -49,8 +49,8 @@ A sleek Vue.js application for buying and selling properties with powerful searc
 1. Copy the environment template:
 
    
-   Create file name .env
-   cp .env.example to .env
+   Create file name .env 
+   then copy the .env.example to .env file
    
 
 🧰 Dependency Installation
@@ -69,14 +69,14 @@ composer install
 Using Docker (Recommended)
 bash
 
-Ensure that docker installed and running 
+Ensure that docker installed and running then run
 
 ```bash
 docker compose up 
 ```
 
 
-Create a database named task-list
+Create a database named VueState
 
 Update your .env with correct credentials
 
