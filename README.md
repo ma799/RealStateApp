@@ -40,7 +40,6 @@ A sleek Vue.js application for buying and selling properties with powerful searc
 ### 📋 Prerequisites
 - PHP 8.1+
 - Composer 2.0+
-- Node.js 16+
 - MySQL 8.0+ (or Docker)
 - NPM/Yarn
 
