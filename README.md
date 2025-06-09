@@ -7,7 +7,7 @@
 ## App Screenshot
 
 <p align="center">
-  <img src="screenshot/screenshot.png" alt="Demo" width="600">
+  <img src="./screenshot/screenshot.png" alt="Demo" width="600">
 </p>
 
 <h1 align="center" style="color: #FF5733; font-size: 28px;">
